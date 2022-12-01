@@ -6,7 +6,8 @@
         <entry key="..\:/Users/manta/Desktop/project/android/kurlywork/app/src/main/res/drawable-v24/ic_btn_heart_off.xml" value="0.1" />
         <entry key="..\:/Users/manta/Desktop/project/android/kurlywork/app/src/main/res/drawable-v24/ic_btn_heart_on.xml" value="0.1" />
         <entry key="..\:/Users/manta/Desktop/project/android/kurlywork/app/src/main/res/layout/activity_main.xml" value="0.309375" />
-        <entry key="..\:/Users/manta/Desktop/project/android/kurlywork/app/src/main/res/layout/item_product.xml" value="0.39537037037037037" />
+        <entry key="..\:/Users/manta/Desktop/project/android/kurlywork/app/src/main/res/layout/item_product.xml" value="0.33" />
+        <entry key="..\:/Users/manta/Desktop/project/android/kurlywork/app/src/main/res/layout/item_product_vertical.xml" value="0.5" />
         <entry key="..\:/Users/manta/Desktop/project/android/kurlywork/mockserver/src/main/res/drawable/ic_btn_heart_off.xml" value="0.1" />
         <entry key="..\:/Users/manta/Desktop/project/android/kurlywork/mockserver/src/main/res/drawable/ic_btn_heart_on.xml" value="0.1" />
       </map>
@@ -17,5 +18,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.33" />
+      </ProjectState>
+    </option>
   </component>
 </project>
