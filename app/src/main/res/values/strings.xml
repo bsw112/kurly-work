@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">kurly-work</string>
+    <string name="price_unit">%d원</string>
 </resources>

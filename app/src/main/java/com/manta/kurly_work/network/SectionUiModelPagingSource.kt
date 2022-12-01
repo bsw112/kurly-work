@@ -31,6 +31,8 @@ class SectionUiModelPagingSource @Inject constructor(
             LoadResult.Error(e)
         } catch (e: HttpException) {
             LoadResult.Error(e)
+        } catch (e: NullPointerException) {
+            LoadResult.Error(e)
         }
     }
 }

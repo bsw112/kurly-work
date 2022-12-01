@@ -1,7 +1,8 @@
 package com.manta.kurly_work.network
 
+import com.manta.kurly_work.model.ProductUiModel
 import com.manta.kurly_work.model.SectionUiModel
-import com.manta.kurly_work.model.ViewType
+import com.manta.kurly_work.model.SectionViewType
 import javax.inject.Inject
 
 class FetchSectionUiModelUseCase @Inject constructor(
@@ -12,9 +13,10 @@ class FetchSectionUiModelUseCase @Inject constructor(
         return sections.map { section ->
             val products = mainRepository.fetchProducts(section.id)
             SectionUiModel(
-                section.title,
-                products,
-                ViewType.fromString(section.type) ?: ViewType.Horizontal
+                sectionId = section.id,
+                sectionTitle = section.title,
+                products = products.map { ProductUiModel(it) },
+                viewType = SectionViewType.fromString(section.type) ?: SectionViewType.Horizontal
             )
         }
     }

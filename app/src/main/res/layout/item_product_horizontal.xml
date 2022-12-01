@@ -6,6 +6,11 @@
 
     <data>
 
+        <import type="com.manta.kurly_work.UtilsKt" />
+
+        <variable
+            name="productModel"
+            type="com.manta.kurly_work.model.ProductUiModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,20 +27,22 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
+            app:srcUrl="@{productModel.product.image}"
             tools:src="@color/black" />
 
         <ImageView
             android:id="@+id/img_favorite"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/ic_btn_heart_on"
             android:layout_margin="5dp"
+            android:src="@{productModel.isSelected ? @drawable/ic_btn_heart_on : @drawable/ic_btn_heart_off}"
             app:layout_constraintBottom_toBottomOf="@id/img_product"
             app:layout_constraintEnd_toEndOf="@id/img_product"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@id/img_product"
             app:layout_constraintTop_toTopOf="@id/img_product"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.0"
+            tools:src="@drawable/ic_btn_heart_on" />
 
         <TextView
             android:id="@+id/tv_title"
@@ -45,6 +52,7 @@
             android:layout_marginTop="15dp"
             android:ellipsize="end"
             android:maxLines="2"
+            android:text="@{productModel.product.name}"
             app:layout_constraintBottom_toTopOf="@id/tv_discount_rate"
             app:layout_constraintEnd_toEndOf="@id/img_product"
             app:layout_constraintHorizontal_bias="0.0"
@@ -57,21 +65,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            app:layout_constraintBottom_toTopOf="@id/tv_original_price"
-            app:layout_constraintEnd_toStartOf="@id/tv_price"
-            app:layout_constraintHorizontal_bias="0.0"
-            android:textStyle="bold"
+            android:text="@{UtilsKt.calculateDiscountRate(productModel.product.originalPrice, productModel.product.discountedPrice)}"
             android:textColor="@color/discount"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/tv_original_price"
+            app:layout_constraintEnd_toStartOf="@id/tv_discounted_price"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="@id/tv_title"
             app:layout_constraintTop_toBottomOf="@id/tv_title"
             tools:text="30%" />
 
         <TextView
-            android:id="@+id/tv_price"
+            android:id="@+id/tv_discounted_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
+            android:text="@{UtilsKt.formatPrice(productModel.product.discountedPrice)}"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@id/tv_discount_rate"
             app:layout_constraintEnd_toEndOf="@id/tv_title"
@@ -85,13 +95,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="10dp"
+            android:text="@{UtilsKt.formatPrice(productModel.product.originalPrice)}"
             android:textColor="@color/normal"
-            app:strike="@{true}"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/tv_title"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@id/tv_title"
             app:layout_constraintTop_toBottomOf="@id/tv_discount_rate"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:strike="@{true}"
             tools:text="8,000원" />
 
 

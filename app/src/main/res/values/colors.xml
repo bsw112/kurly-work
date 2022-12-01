@@ -10,4 +10,5 @@
 
     <color name="discount">#FA622F</color>
     <color name="normal">#808080</color>
+    <color name="placeHolder">#DFDFDF</color>
 </resources>

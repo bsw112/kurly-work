@@ -4,9 +4,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+
     <data>
 
+        <import type="com.manta.kurly_work.UtilsKt" />
+
+        <variable
+            name="productModel"
+            type="com.manta.kurly_work.model.ProductUiModel" />
     </data>
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
@@ -23,6 +30,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
+            app:srcUrl="@{productModel.product.image}"
             tools:src="@color/black" />
 
         <ImageView
@@ -30,7 +38,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_margin="5dp"
-            android:src="@drawable/ic_btn_heart_on"
+            android:src="@{productModel.isSelected ? @drawable/ic_btn_heart_on : @drawable/ic_btn_heart_off}"
             app:layout_constraintBottom_toBottomOf="@id/img_product"
             app:layout_constraintEnd_toEndOf="@id/img_product"
             app:layout_constraintHorizontal_bias="1.0"
@@ -46,6 +54,7 @@
             android:layout_marginTop="15dp"
             android:ellipsize="end"
             android:maxLines="1"
+            android:text="@{productModel.product.name}"
             app:layout_constraintBottom_toTopOf="@id/tv_discount_rate"
             app:layout_constraintEnd_toEndOf="@id/img_product"
             app:layout_constraintHorizontal_bias="0.0"
@@ -61,8 +70,9 @@
             android:layout_marginBottom="10dp"
             android:textColor="@color/discount"
             android:textStyle="bold"
+            android:text="@{UtilsKt.calculateDiscountRate(productModel.product.originalPrice, productModel.product.discountedPrice)}"
             app:layout_constraintBottom_toTopOf="@id/tv_original_price"
-            app:layout_constraintEnd_toStartOf="@id/tv_price"
+            app:layout_constraintEnd_toStartOf="@id/tv_discounted_price"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="@id/tv_title"
@@ -71,11 +81,12 @@
             tools:text="30%" />
 
         <TextView
-            android:id="@+id/tv_price"
+            android:id="@+id/tv_discounted_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:textStyle="bold"
+            android:text="@{UtilsKt.formatPrice(productModel.product.discountedPrice)}"
             app:layout_constraintBottom_toBottomOf="@id/tv_discount_rate"
             app:layout_constraintEnd_toStartOf="@id/tv_original_price"
             app:layout_constraintStart_toEndOf="@id/tv_discount_rate"
@@ -88,10 +99,11 @@
             android:layout_height="wrap_content"
             android:textColor="@color/normal"
             android:layout_marginStart="5dp"
-            app:layout_constraintBottom_toBottomOf="@id/tv_price"
+            android:text="@{UtilsKt.formatPrice(productModel.product.originalPrice)}"
+            app:layout_constraintBottom_toBottomOf="@id/tv_discounted_price"
             app:layout_constraintEnd_toEndOf="@id/tv_title"
-            app:layout_constraintStart_toEndOf="@id/tv_price"
-            app:layout_constraintTop_toTopOf="@id/tv_price"
+            app:layout_constraintStart_toEndOf="@id/tv_discounted_price"
+            app:layout_constraintTop_toTopOf="@id/tv_discounted_price"
             app:strike="@{true}"
             tools:text="8,000원"
             />
