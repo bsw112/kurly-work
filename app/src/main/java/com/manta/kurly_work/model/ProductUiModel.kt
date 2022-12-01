@@ -1,6 +1,7 @@
 package com.manta.kurly_work.model
 
 import androidx.recyclerview.widget.DiffUtil
+import com.manta.kurly_work.BR
 
 data class ProductUiModel(
     val product: Product,
@@ -22,4 +23,7 @@ data class ProductUiModel(
                 return oldItem == newItem
             }
         }
+
+    override val bindingVariableId: Int
+        get() = BR.productModel
 }

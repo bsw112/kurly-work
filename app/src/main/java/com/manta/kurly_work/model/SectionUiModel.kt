@@ -1,7 +1,7 @@
 package com.manta.kurly_work.model
 
 import androidx.recyclerview.widget.DiffUtil
-
+import com.manta.kurly_work.BR
 
 enum class SectionViewType(val type: String) {
     Vertical("vertical"), Horizontal("horizontal"), Grid("grid");
@@ -32,6 +32,8 @@ data class SectionUiModel(
             ): Boolean {
                 return oldItem == newItem
             }
-
         }
+
+    override val bindingVariableId: Int
+        get() = BR.sectionModel
 }

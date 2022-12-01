@@ -1,7 +1,6 @@
 package com.manta.kurly_work.ui
 
 import android.view.ViewGroup
-import androidx.databinding.ViewDataBinding
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import com.manta.kurly_work.BR
@@ -23,44 +22,27 @@ class MainPagingAdapter :
         return when (viewType) {
             SectionViewType.Horizontal.ordinal -> createViewHolder<SectionUiModel>(
                 R.layout.item_section_horizontal,
-                BR.sectionModel,
                 parent
-            ).also {
-                (it.binding as ItemSectionHorizontalBinding).rvProduct.adapter =
-                    AppListAdapter<ProductUiModel>(
-                        R.layout.item_product_horizontal,
-                        BR.productModel
-                    )
+            ).applyBinding<ItemSectionHorizontalBinding> {
+                rvProduct.adapter = AppListAdapter<ProductUiModel>(R.layout.item_product_horizontal)
             }
             SectionViewType.Vertical.ordinal -> createViewHolder<SectionUiModel>(
                 R.layout.item_section_vertical,
-                BR.sectionModel,
                 parent
-            ).also {
-                (it.binding as ItemSectionVerticalBinding).rvProduct.adapter =
-                    AppListAdapter<ProductUiModel>(R.layout.item_product_vertical, BR.productModel)
+            ).applyBinding<ItemSectionVerticalBinding> {
+                rvProduct.adapter = AppListAdapter<ProductUiModel>(R.layout.item_product_vertical)
             }
             SectionViewType.Grid.ordinal -> createViewHolder<SectionUiModel>(
                 R.layout.item_section_grid,
-                BR.sectionModel,
                 parent
-            ).also {
-                (it.binding as ItemSectionGridBinding).rvProduct.adapter =
-                    AppListAdapter<ProductUiModel>(
-                        R.layout.item_section_horizontal,
-                        BR.productModel
-                    )
+            ).applyBinding<ItemSectionGridBinding> {
+                rvProduct.adapter = AppListAdapter<ProductUiModel>(R.layout.item_section_horizontal)
             }
             else -> createViewHolder<SectionUiModel>(
                 R.layout.item_section_horizontal,
-                BR.sectionModel,
                 parent
-            ).also {
-                (it.binding as ItemSectionHorizontalBinding).rvProduct.adapter =
-                    AppListAdapter<ProductUiModel>(
-                        R.layout.item_product_horizontal,
-                        BR.productModel
-                    )
+            ).applyBinding<ItemSectionHorizontalBinding> {
+                rvProduct.adapter = AppListAdapter<ProductUiModel>(R.layout.item_product_horizontal)
             }
         }
     }
@@ -74,7 +56,7 @@ class MainPagingAdapter :
         position: Int
     ) {
         getItem(position)?.let {
-            holder.bind(it)
+            holder.bind(it, it.bindingVariableId)
         }
     }
 }
