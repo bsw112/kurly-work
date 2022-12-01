@@ -4,24 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="sectionModel"
             type="com.manta.kurly_work.model.SectionUiModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:paddingHorizontal="30dp"
-        android:paddingVertical="20dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingVertical="20dp">
 
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textSize="@dimen/h3"
+            android:paddingHorizontal="30dp"
             android:text="@{sectionModel.sectionTitle}"
+            android:textSize="@dimen/h3"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -33,14 +34,17 @@
             android:id="@+id/rv_product"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_marginTop="15dp"
-            app:submitList="@{sectionModel.products}"
+            android:clipToPadding="false"
+            android:orientation="horizontal"
+            android:overScrollMode="never"
+            android:paddingHorizontal="30dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_title" />
+            app:layout_constraintTop_toBottomOf="@id/tv_title"
+            app:submitList="@{sectionModel.products}" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
