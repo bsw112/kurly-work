@@ -8,25 +8,6 @@ import javax.inject.Inject
 class MainRepository @Inject constructor(
     private val kurlyService: KurlyService
 ) {
-    suspend fun fetchSections(page: Int, onError: (Throwable) -> Unit): List<Section> {
-        val response = kurlyService.fetchSections(page)
-        val body = response.body()
-        return if (response.isSuccessful && body != null) {
-            body
-        } else {
-            onError(HttpException(response))
-            emptyList()
-        }
-    }
-
-    suspend fun fetchProducts(sectionId: Int, onError: (Throwable) -> Unit): List<Product> {
-        val response = kurlyService.fetchProducts(sectionId)
-        val body = response.body()
-        return if (response.isSuccessful && body != null) {
-            body
-        } else {
-            onError(HttpException(response))
-            emptyList()
-        }
-    }
+    suspend fun fetchSections(page: Int): List<Section> = kurlyService.fetchSections(page)
+    suspend fun fetchProducts(sectionId: Int): List<Product> = kurlyService.fetchProducts(sectionId)
 }

@@ -11,10 +11,10 @@ interface KurlyService {
     @GET("sections")
     suspend fun fetchSections(
         @Query("page") page: Int,
-    ): Response<List<Section>>
+    ): List<Section>
 
     @GET("section/products")
     suspend fun fetchProducts(
-        @Query("sectionId") sectionId : Int
-    ) : Response<List<Product>>
+        @Query("sectionId") sectionId: Int
+    ): List<Product>
 }

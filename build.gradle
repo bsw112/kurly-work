@@ -12,6 +12,7 @@ ext {
     retrofit_version = '2.9.0'
     retrofit_interceptor_version = '4.10.0'
     swiperefreshlayout_version = '1.1.0'
+    paging_version = '3.1.1'
 }
 
 
