@@ -6,17 +6,17 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewTreeLifecycleOwner
+import androidx.lifecycle.findViewTreeLifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 
-open class AppViewHolder<T : Any>(val binding: ViewDataBinding) :
-    RecyclerView.ViewHolder(binding.root) {
+class AppViewHolder(val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(item: T, bindingId: Int) {
+    fun bind(item: Any, bindingId: Int) {
         binding.setVariable(bindingId, item)
         binding.executePendingBindings()
     }
 
-    inline fun <reified VH : ViewDataBinding> applyBinding(block: VH.() -> Unit): AppViewHolder<T> {
+    inline fun <reified VH : ViewDataBinding> applyBinding(block: VH.() -> Unit): AppViewHolder {
         if (binding is VH) {
             block(binding)
         }
@@ -24,16 +24,16 @@ open class AppViewHolder<T : Any>(val binding: ViewDataBinding) :
     }
 }
 
-fun <T : Any> createViewHolder(
+fun createAppViewHolder(
     @LayoutRes layoutId: Int,
     parent: ViewGroup
-): AppViewHolder<T> {
+): AppViewHolder {
     val binding = DataBindingUtil.inflate<ViewDataBinding>(
         LayoutInflater.from(parent.context),
         layoutId,
         parent,
         false
     )
-    binding.lifecycleOwner = ViewTreeLifecycleOwner.get(parent)
+    binding.lifecycleOwner = parent.findViewTreeLifecycleOwner()
     return AppViewHolder(binding)
 }
