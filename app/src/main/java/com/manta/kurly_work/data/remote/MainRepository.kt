@@ -1,7 +1,7 @@
-package com.manta.kurly_work.network
+package com.manta.kurly_work.data.remote
 
-import com.manta.kurly_work.network.data.Product
-import com.manta.kurly_work.network.data.Section
+import com.manta.kurly_work.data.remote.entity.Product
+import com.manta.kurly_work.data.remote.entity.Section
 import javax.inject.Inject
 
 class MainRepository @Inject constructor(

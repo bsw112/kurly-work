@@ -7,9 +7,11 @@ import com.manta.kurly_work.R
 import com.manta.kurly_work.databinding.ItemSectionGridBinding
 import com.manta.kurly_work.databinding.ItemSectionHorizontalBinding
 import com.manta.kurly_work.databinding.ItemSectionVerticalBinding
-import com.manta.kurly_work.model.ProductUiModel
 import com.manta.kurly_work.model.SectionUiModel
-import com.manta.kurly_work.model.SectionViewType
+
+interface ProductUiEventListener {
+    fun onClickFavorite(productId: Int)
+}
 
 class MainPagingAdapter : PagingDataAdapter<SectionUiModel, AppViewHolder>(createItemCallback()) {
 
@@ -18,44 +20,45 @@ class MainPagingAdapter : PagingDataAdapter<SectionUiModel, AppViewHolder>(creat
         viewType: Int
     ): AppViewHolder {
         return when (viewType) {
-            SectionViewType.Horizontal.ordinal -> createAppViewHolder(
+            SectionUiModel.ViewType.Horizontal.ordinal -> createAppViewHolder(
                 R.layout.item_section_horizontal,
                 parent
             ).applyBinding<ItemSectionHorizontalBinding> {
-                rvProduct.adapter = AppListAdapter<ProductUiModel>(R.layout.item_product_horizontal)
+                rvProduct.adapter = ProductAdapter()
             }
-            SectionViewType.Vertical.ordinal -> createAppViewHolder(
+            SectionUiModel.ViewType.Vertical.ordinal -> createAppViewHolder(
                 R.layout.item_section_vertical,
                 parent
             ).applyBinding<ItemSectionVerticalBinding> {
-                rvProduct.adapter = AppListAdapter<ProductUiModel>(R.layout.item_product_vertical)
+                rvProduct.adapter = ProductAdapter()
             }
-            SectionViewType.Grid.ordinal -> createAppViewHolder(
+            SectionUiModel.ViewType.Grid.ordinal -> createAppViewHolder(
                 R.layout.item_section_grid,
                 parent
             ).applyBinding<ItemSectionGridBinding> {
-                rvProduct.layoutManager = GridLayoutManager(parent.context, 2, GridLayoutManager.HORIZONTAL, false)
-                rvProduct.adapter = AppListAdapter<ProductUiModel>(R.layout.item_product_horizontal)
+                rvProduct.layoutManager =
+                    GridLayoutManager(parent.context, 2, GridLayoutManager.HORIZONTAL, false)
+                rvProduct.adapter = ProductAdapter()
             }
             else -> createAppViewHolder(
                 R.layout.item_section_horizontal,
                 parent
             ).applyBinding<ItemSectionHorizontalBinding> {
-                rvProduct.adapter = AppListAdapter<ProductUiModel>(R.layout.item_product_horizontal)
+                rvProduct.adapter = ProductAdapter()
             }
         }
-    }
-
-    override fun getItemViewType(position: Int): Int {
-        return getItem(position)?.viewType?.ordinal ?: 1
     }
 
     override fun onBindViewHolder(
         holder: AppViewHolder,
         position: Int
     ) {
-        getItem(position)?.let {
-            holder.bind(it, it.bindingVariableId)
+        getItem(position)?.let { uiModel ->
+            holder.bind(uiModel.bindingVariableId, uiModel)
         }
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return getItem(position)?.viewType?.ordinal ?: 1
     }
 }

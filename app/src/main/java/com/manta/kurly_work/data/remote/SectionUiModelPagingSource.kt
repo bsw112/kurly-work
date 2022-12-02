@@ -1,11 +1,10 @@
-package com.manta.kurly_work.network
+package com.manta.kurly_work.data.remote
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.manta.kurly_work.model.SectionUiModel
 import retrofit2.HttpException
 import java.io.IOException
-import javax.inject.Inject
 
 class SectionUiModelPagingSource(
    private val fetchSectionUiModelUseCase: FetchSectionUiModelUseCase,

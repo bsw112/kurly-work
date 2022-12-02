@@ -1,4 +1,4 @@
-package com.manta.kurly_work.network.data
+package com.manta.kurly_work.data.remote.entity
 
 import com.google.gson.annotations.SerializedName
 

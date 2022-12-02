@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.manta.kurly_work.R
 import com.manta.kurly_work.loadImage
-import com.manta.kurly_work.ui.AppListAdapter
 
 @BindingAdapter("srcUrl")
 fun ImageView.setSrcUrl(uri: String?) {

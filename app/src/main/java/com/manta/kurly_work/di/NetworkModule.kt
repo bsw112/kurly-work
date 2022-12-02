@@ -2,7 +2,7 @@ package com.manta.kurly_work.di
 
 import android.content.Context
 import com.kurly.android.mockserver.MockInterceptor
-import com.manta.kurly_work.network.KurlyService
+import com.manta.kurly_work.data.remote.KurlyService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
