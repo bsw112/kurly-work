@@ -1,8 +1,7 @@
 package com.manta.kurly_work.network
 
-import com.manta.kurly_work.model.Product
-import com.manta.kurly_work.model.Section
-import retrofit2.HttpException
+import com.manta.kurly_work.network.data.Product
+import com.manta.kurly_work.network.data.Section
 import javax.inject.Inject
 
 class MainRepository @Inject constructor(

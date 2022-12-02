@@ -1,4 +1,4 @@
-package com.manta.kurly_work.model
+package com.manta.kurly_work.network.data
 
 import com.google.gson.annotations.SerializedName
 
@@ -16,4 +16,6 @@ data class Product(
     val discountedPrice: Int?,
     @SerializedName("isSoldOut")
     val isSoldOut: Boolean
-)
+) {
+    val finalPrice: Int get() = discountedPrice ?: originalPrice
+}

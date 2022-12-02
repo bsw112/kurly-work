@@ -2,6 +2,7 @@ package com.manta.kurly_work.ui
 
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.GridLayoutManager
 import com.manta.kurly_work.R
 import com.manta.kurly_work.databinding.ItemSectionGridBinding
 import com.manta.kurly_work.databinding.ItemSectionHorizontalBinding
@@ -33,7 +34,8 @@ class MainPagingAdapter : PagingDataAdapter<SectionUiModel, AppViewHolder>(creat
                 R.layout.item_section_grid,
                 parent
             ).applyBinding<ItemSectionGridBinding> {
-                rvProduct.adapter = AppListAdapter<ProductUiModel>(R.layout.item_section_horizontal)
+                rvProduct.layoutManager = GridLayoutManager(parent.context, 2, GridLayoutManager.HORIZONTAL, false)
+                rvProduct.adapter = AppListAdapter<ProductUiModel>(R.layout.item_product_horizontal)
             }
             else -> createAppViewHolder(
                 R.layout.item_section_horizontal,

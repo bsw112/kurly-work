@@ -1,8 +1,8 @@
 package com.manta.kurly_work.network
 
 import com.manta.kurly_work.model.BaseResponse
-import com.manta.kurly_work.model.Product
-import com.manta.kurly_work.model.Section
+import com.manta.kurly_work.network.data.Product
+import com.manta.kurly_work.network.data.Section
 import retrofit2.http.GET
 import retrofit2.http.Query
 

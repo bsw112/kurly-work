@@ -7,8 +7,8 @@ import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
 
-class SectionUiModelPagingSource @Inject constructor(
-    private val fetchSectionUiModelUseCase: FetchSectionUiModelUseCase,
+class SectionUiModelPagingSource(
+   private val fetchSectionUiModelUseCase: FetchSectionUiModelUseCase,
 ) : PagingSource<Int, SectionUiModel>() {
     override fun getRefreshKey(state: PagingState<Int, SectionUiModel>): Int? {
         return state.anchorPosition?.let { anchorPosition ->

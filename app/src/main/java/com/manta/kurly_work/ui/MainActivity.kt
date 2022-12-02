@@ -8,6 +8,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.manta.kurly_work.R
 import com.manta.kurly_work.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -17,19 +19,28 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    val binding: ActivityMainBinding by lazy {
-        DataBindingUtil.setContentView(this, R.layout.activity_main)
-    }
+    lateinit var binding: ActivityMainBinding
 
     private val vm: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         val pagingAdapter = MainPagingAdapter()
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.lifecycleOwner = this
         binding.rvSection.adapter = pagingAdapter
+        binding.rvSection.addItemDecoration(
+            DividerItemDecoration(
+                this,
+                LinearLayoutManager.VERTICAL
+            )
+        )
         binding.vm = vm
+
+//        binding.layoutRefresh.setOnRefreshListener {
+//            pagingAdapter.refresh()
+//            binding.layoutRefresh.isRefreshing = false
+//        }
 
         lifecycleScope.launch {
             vm.sectionUiModelList.collect {
@@ -51,6 +62,3 @@ class MainActivity : AppCompatActivity() {
         }
     }
 }
-
-
-fun CombinedLoadStates.isError() = refresh is LoadState.Error || append is LoadState.Error

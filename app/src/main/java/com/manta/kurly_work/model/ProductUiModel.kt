@@ -2,6 +2,7 @@ package com.manta.kurly_work.model
 
 import androidx.recyclerview.widget.DiffUtil
 import com.manta.kurly_work.BR
+import com.manta.kurly_work.network.data.Product
 
 data class ProductUiModel(
     val product: Product,

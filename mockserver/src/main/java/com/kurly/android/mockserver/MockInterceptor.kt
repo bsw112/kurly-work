@@ -2,6 +2,7 @@ package com.kurly.android.mockserver
 
 import android.content.Context
 import android.os.SystemClock
+import android.util.Log
 import com.kurly.android.mockserver.core.AssetFileProvider
 import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaType
@@ -17,7 +18,13 @@ class MockInterceptor(context: Context) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         SystemClock.sleep(Random.nextInt(1, 3) * 1000L)
 
-        val responseString = mockServer.get(chain.request())
+        val request = chain.request()
+
+        Log.d("kurly_debug", request.url.toString())
+
+        val responseString = mockServer.get(request)
+
+        Log.d("kurly_debug", responseString.toString())
 
         return chain.proceed(chain.request())
             .newBuilder()

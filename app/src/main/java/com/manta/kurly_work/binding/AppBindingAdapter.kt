@@ -1,6 +1,7 @@
 package com.manta.kurly_work.binding
 
 import android.graphics.Paint
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
@@ -28,4 +29,13 @@ fun TextView.setIsStrike(isStrike: Boolean) {
 @BindingAdapter("submitList")
 fun RecyclerView.bindSubmitList(list: List<Any>?) {
     (adapter as? ListAdapter<Any, *>)?.submitList(list)
+}
+
+@BindingAdapter("visible")
+fun View.setVisible(isVisible: Boolean){
+    if(isVisible){
+        visibility = View.VISIBLE
+    }else{
+        visibility = View.GONE
+    }
 }

@@ -9,6 +9,8 @@
 
         <import type="com.manta.kurly_work.UtilsKt" />
 
+        <import type="android.view.View" />
+
         <variable
             name="productModel"
             type="com.manta.kurly_work.model.ProductUiModel" />
@@ -23,6 +25,7 @@
             android:id="@+id/img_product"
             android:layout_width="0dp"
             android:layout_height="200dp"
+            android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="6:4"
             app:layout_constraintEnd_toEndOf="parent"
@@ -60,53 +63,58 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@id/img_product"
             app:layout_constraintTop_toBottomOf="@id/img_product"
+            app:layout_constraintVertical_bias="0.0"
             tools:text="[샐러딩] 레디믹스 스탠다드 150g" />
 
         <TextView
             android:id="@+id/tv_discount_rate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="5dp"
+            android:text="@{UtilsKt.calculateDiscountRate(productModel.product.originalPrice, productModel.product.discountedPrice)}"
             android:textColor="@color/discount"
             android:textStyle="bold"
-            android:text="@{UtilsKt.calculateDiscountRate(productModel.product.originalPrice, productModel.product.discountedPrice)}"
-            app:layout_constraintBottom_toTopOf="@id/tv_original_price"
             app:layout_constraintEnd_toStartOf="@id/tv_discounted_price"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="@id/tv_title"
             app:layout_constraintTop_toBottomOf="@id/tv_title"
-            app:layout_constraintBottom_toBottomOf="parent"
-            tools:text="30%" />
+            app:visible="@{productModel.product.discountedPrice != null}"
+            tools:text="30%"
+            tools:visibility="visible" />
 
         <TextView
             android:id="@+id/tv_discounted_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="10dp"
+            android:text="@{UtilsKt.formatPrice(productModel.product.finalPrice)}"
             android:textStyle="bold"
-            android:text="@{UtilsKt.formatPrice(productModel.product.discountedPrice)}"
-            app:layout_constraintBottom_toBottomOf="@id/tv_discount_rate"
-            app:layout_constraintEnd_toStartOf="@id/tv_original_price"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/tv_title"
             app:layout_constraintStart_toEndOf="@id/tv_discount_rate"
-            app:layout_constraintTop_toTopOf="@id/tv_discount_rate"
+            app:layout_constraintTop_toBottomOf="@id/tv_title"
+            app:layout_constraintVertical_bias="0.0"
             tools:text="6,200원" />
+
 
         <TextView
             android:id="@+id/tv_original_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/normal"
             android:layout_marginStart="5dp"
             android:text="@{UtilsKt.formatPrice(productModel.product.originalPrice)}"
+            android:textColor="@color/normal"
             app:layout_constraintBottom_toBottomOf="@id/tv_discounted_price"
             app:layout_constraintEnd_toEndOf="@id/tv_title"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@id/tv_discounted_price"
             app:layout_constraintTop_toTopOf="@id/tv_discounted_price"
+            app:layout_constraintVertical_bias="0.0"
             app:strike="@{true}"
-            tools:text="8,000원"
-            />
+            app:visible="@{productModel.product.discountedPrice != null}"
+            tools:text="8,000원" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
