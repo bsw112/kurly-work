@@ -8,14 +8,14 @@ import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.findViewTreeLifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 
-class AppViewHolder(val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
+class BindingViewHolder(val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(bindingId: Int, item: Any) {
         binding.setVariable(bindingId, item)
         binding.executePendingBindings()
     }
 
-    inline fun <reified VH : ViewDataBinding> applyBinding(block: VH.() -> Unit): AppViewHolder {
+    inline fun <reified VH : ViewDataBinding> applyBinding(block: VH.() -> Unit): BindingViewHolder {
         if (binding is VH) {
             block(binding)
         }
@@ -23,10 +23,10 @@ class AppViewHolder(val binding: ViewDataBinding) : RecyclerView.ViewHolder(bind
     }
 }
 
-fun createAppViewHolder(
+fun createBindingViewHolder(
     @LayoutRes layoutId: Int,
     parent: ViewGroup
-): AppViewHolder {
+): BindingViewHolder {
     val binding = DataBindingUtil.inflate<ViewDataBinding>(
         LayoutInflater.from(parent.context),
         layoutId,
@@ -34,5 +34,5 @@ fun createAppViewHolder(
         false
     )
     binding.lifecycleOwner = parent.findViewTreeLifecycleOwner()
-    return AppViewHolder(binding)
+    return BindingViewHolder(binding)
 }

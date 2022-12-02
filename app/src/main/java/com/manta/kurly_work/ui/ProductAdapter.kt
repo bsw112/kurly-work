@@ -8,17 +8,17 @@ import com.manta.kurly_work.databinding.ItemProductNormalBinding
 import com.manta.kurly_work.databinding.ItemProductStretchBinding
 import com.manta.kurly_work.model.ProductUiModel
 
-class ProductAdapter : ListAdapter<ProductUiModel, AppViewHolder>(createItemCallback()) {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AppViewHolder {
+class ProductAdapter : ListAdapter<ProductUiModel, BindingViewHolder>(createItemCallback()) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindingViewHolder {
         val layoutId = if (viewType == ProductUiModel.ViewType.Normal.ordinal) {
             R.layout.item_product_normal
         } else {
             R.layout.item_product_stretch
         }
-        return createAppViewHolder(layoutId, parent)
+        return createBindingViewHolder(layoutId, parent)
     }
 
-    override fun onBindViewHolder(holder: AppViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: BindingViewHolder, position: Int) {
         getItem(position)?.let { item ->
             holder.bind(item.bindingVariableId, item)
 

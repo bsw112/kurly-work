@@ -19,13 +19,13 @@ fun <T : BaseModel<T>> createItemCallback(): DiffUtil.ItemCallback<T> {
 
 open class AppListAdapter<T : BaseModel<T>>(
     private val layoutId: Int
-) : ListAdapter<T, AppViewHolder>(createItemCallback()) {
+) : ListAdapter<T, BindingViewHolder>(createItemCallback()) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AppViewHolder {
-        return createAppViewHolder(layoutId, parent)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindingViewHolder {
+        return createBindingViewHolder(layoutId, parent)
     }
 
-    override fun onBindViewHolder(holder: AppViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: BindingViewHolder, position: Int) {
         getItem(position)?.let {
             holder.bind(it.bindingVariableId, it)
 

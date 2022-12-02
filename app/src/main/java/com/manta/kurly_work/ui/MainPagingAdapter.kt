@@ -13,26 +13,26 @@ interface ProductUiEventListener {
     fun onClickFavorite(productId: Int)
 }
 
-class MainPagingAdapter : PagingDataAdapter<SectionUiModel, AppViewHolder>(createItemCallback()) {
+class MainPagingAdapter : PagingDataAdapter<SectionUiModel, BindingViewHolder>(createItemCallback()) {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): AppViewHolder {
+    ): BindingViewHolder {
         return when (viewType) {
-            SectionUiModel.ViewType.Horizontal.ordinal -> createAppViewHolder(
+            SectionUiModel.ViewType.Horizontal.ordinal -> createBindingViewHolder(
                 R.layout.item_section_horizontal,
                 parent
             ).applyBinding<ItemSectionHorizontalBinding> {
                 rvProduct.adapter = ProductAdapter()
             }
-            SectionUiModel.ViewType.Vertical.ordinal -> createAppViewHolder(
+            SectionUiModel.ViewType.Vertical.ordinal -> createBindingViewHolder(
                 R.layout.item_section_vertical,
                 parent
             ).applyBinding<ItemSectionVerticalBinding> {
                 rvProduct.adapter = ProductAdapter()
             }
-            SectionUiModel.ViewType.Grid.ordinal -> createAppViewHolder(
+            SectionUiModel.ViewType.Grid.ordinal -> createBindingViewHolder(
                 R.layout.item_section_grid,
                 parent
             ).applyBinding<ItemSectionGridBinding> {
@@ -40,7 +40,7 @@ class MainPagingAdapter : PagingDataAdapter<SectionUiModel, AppViewHolder>(creat
                     GridLayoutManager(parent.context, 2, GridLayoutManager.HORIZONTAL, false)
                 rvProduct.adapter = ProductAdapter()
             }
-            else -> createAppViewHolder(
+            else -> createBindingViewHolder(
                 R.layout.item_section_horizontal,
                 parent
             ).applyBinding<ItemSectionHorizontalBinding> {
@@ -50,7 +50,7 @@ class MainPagingAdapter : PagingDataAdapter<SectionUiModel, AppViewHolder>(creat
     }
 
     override fun onBindViewHolder(
-        holder: AppViewHolder,
+        holder: BindingViewHolder,
         position: Int
     ) {
         getItem(position)?.let { uiModel ->
