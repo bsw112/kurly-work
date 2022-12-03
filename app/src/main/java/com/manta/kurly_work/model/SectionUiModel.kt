@@ -3,6 +3,10 @@ package com.manta.kurly_work.model
 import androidx.recyclerview.widget.DiffUtil
 import com.manta.kurly_work.BR
 
+data class PagingUiModel<T : BaseModel<T>>(
+    val nextPage: Int?,
+    val sectionUiModel: List<T>
+)
 
 data class SectionUiModel(
     val sectionId: Int,

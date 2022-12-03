@@ -6,11 +6,15 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.manta.kurly_work.R
 import com.manta.kurly_work.databinding.ActivityMainBinding
+import com.manta.kurly_work.isEndOfPageReached
+import com.manta.kurly_work.isLoading
+import com.manta.kurly_work.onError
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -35,10 +39,9 @@ class MainActivity : AppCompatActivity() {
         )
         binding.vm = vm
 
-//        binding.layoutRefresh.setOnRefreshListener {
-//            pagingAdapter.refresh()
-//            binding.layoutRefresh.isRefreshing = false
-//        }
+        binding.layoutRefresh.setOnRefreshListener {
+            pagingAdapter.refresh()
+        }
 
         lifecycleScope.launch {
             vm.sectionUiModelList.collect {
@@ -48,13 +51,10 @@ class MainActivity : AppCompatActivity() {
 
         lifecycleScope.launch {
             pagingAdapter.loadStateFlow.collect {
-                val refresh = it.refresh
-                val append = it.append
-                if (refresh is LoadState.Error) {
-                    Log.e("kurly_debug", refresh.error.message, refresh.error)
-                }
-                if (append is LoadState.Error) {
-                    Log.e("kurly_debug", append.error.message, append.error)
+                binding.layoutRefresh.isRefreshing = it.isLoading()
+
+                it.onError { t ->
+                    Log.e("kurly_debug", t.message, t)
                 }
             }
         }

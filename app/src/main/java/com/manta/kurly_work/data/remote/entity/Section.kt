@@ -10,12 +10,5 @@ data class Section(
     @SerializedName("type")
     val type: String,
     @SerializedName("url")
-    val url: String,
-    @SerializedName("Paging")
-    val page: Paging?
-)
-
-data class Paging(
-    @SerializedName("next_page")
-    val nextPage: Int
+    val url: String
 )
