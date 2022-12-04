@@ -20,11 +20,7 @@ class MockInterceptor(context: Context) : Interceptor {
 
         val request = chain.request()
 
-        Log.d("kurly_debug", request.url.toString())
-
         val responseString = mockServer.get(request)
-
-        Log.d("kurly_debug", responseString.toString())
 
         return chain.proceed(chain.request())
             .newBuilder()

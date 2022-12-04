@@ -1,7 +1,9 @@
 package com.manta.kurly_work.data.remote
 
+import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import com.manta.kurly_work.TAG
 import com.manta.kurly_work.model.SectionUiModel
 import com.manta.kurly_work.model.PagingUiModel
 import retrofit2.HttpException
@@ -13,19 +15,22 @@ class SectionUiModelPagingSource(
     override fun getRefreshKey(state: PagingState<Int, SectionUiModel>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
             val anchorPage = state.closestPageToPosition(anchorPosition)
-            anchorPage?.prevKey?.plus(1) ?: anchorPage?.nextKey?.minus(1)
+            val refreshKey = anchorPage?.prevKey?.plus(1) ?: anchorPage?.nextKey?.minus(1)
+            Log.d(TAG, "refreshKey :$refreshKey")
+            refreshKey
         }
     }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, SectionUiModel> {
         return try {
-            val nextPageNumber = params.key ?: 1
+            val currentPage = params.key ?: 1
+            Log.d(TAG, "currentPage :$currentPage")
             val response: PagingUiModel<SectionUiModel> =
-                fetchSectionUiModelUseCase.fetchSectionUiModel(nextPageNumber)
+                fetchSectionUiModelUseCase.fetchSectionUiModel(currentPage)
 
             LoadResult.Page(
                 data = response.sectionUiModel,
-                prevKey = null,
+                prevKey = if (currentPage == 1) null else currentPage - 1,
                 nextKey = response.nextPage
             )
         } catch (e: IOException) {

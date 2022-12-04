@@ -13,7 +13,9 @@ interface ProductUiEventListener {
     fun onClickFavorite(productId: Int)
 }
 
-class MainPagingAdapter : PagingDataAdapter<SectionUiModel, BindingViewHolder>(createItemCallback()) {
+class MainPagingAdapter(
+  private val onClickFavorite: (productId: Int, isSelected: Boolean) -> Unit
+) : PagingDataAdapter<SectionUiModel, BindingViewHolder>(createItemCallback()) {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -24,13 +26,13 @@ class MainPagingAdapter : PagingDataAdapter<SectionUiModel, BindingViewHolder>(c
                 R.layout.item_section_horizontal,
                 parent
             ).applyBinding<ItemSectionHorizontalBinding> {
-                rvProduct.adapter = ProductAdapter()
+                rvProduct.adapter = ProductAdapter(onClickFavorite)
             }
             SectionUiModel.ViewType.Vertical.ordinal -> createBindingViewHolder(
                 R.layout.item_section_vertical,
                 parent
             ).applyBinding<ItemSectionVerticalBinding> {
-                rvProduct.adapter = ProductAdapter()
+                rvProduct.adapter = ProductAdapter(onClickFavorite)
             }
             SectionUiModel.ViewType.Grid.ordinal -> createBindingViewHolder(
                 R.layout.item_section_grid,
@@ -38,13 +40,13 @@ class MainPagingAdapter : PagingDataAdapter<SectionUiModel, BindingViewHolder>(c
             ).applyBinding<ItemSectionGridBinding> {
                 rvProduct.layoutManager =
                     GridLayoutManager(parent.context, 2, GridLayoutManager.HORIZONTAL, false)
-                rvProduct.adapter = ProductAdapter()
+                rvProduct.adapter = ProductAdapter(onClickFavorite)
             }
             else -> createBindingViewHolder(
                 R.layout.item_section_horizontal,
                 parent
             ).applyBinding<ItemSectionHorizontalBinding> {
-                rvProduct.adapter = ProductAdapter()
+                rvProduct.adapter = ProductAdapter(onClickFavorite)
             }
         }
     }

@@ -24,14 +24,7 @@ class FetchSectionUiModelUseCase @Inject constructor(
                     ProductUiModel(
                         product = product,
                         viewType = sectionViewType.toProductViewType(),
-                        isSelected = favoriteProductIdList.contains(product.id.toString()),
-                        onClickFavorite = { productId, isSelected ->
-                            if (isSelected) {
-                                preference.addFavoriteProduct(productId)
-                            } else {
-                                preference.removeFavoriteProduct(productId)
-                            }
-                        }
+                        isSelected = favoriteProductIdList.contains(product.id.toString())
                     )
                 }
             )

@@ -8,8 +8,7 @@ import com.manta.kurly_work.data.remote.entity.Product
 data class ProductUiModel(
     val product: Product,
     val viewType: ViewType,
-    var isSelected: Boolean = false,
-    val onClickFavorite: (productId: Int, isSelected : Boolean) -> Unit
+    var isSelected: Boolean = false
 ) : BaseModel<ProductUiModel> {
 
     enum class ViewType {

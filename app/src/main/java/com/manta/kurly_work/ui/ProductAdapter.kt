@@ -8,7 +8,9 @@ import com.manta.kurly_work.databinding.ItemProductNormalBinding
 import com.manta.kurly_work.databinding.ItemProductStretchBinding
 import com.manta.kurly_work.model.ProductUiModel
 
-class ProductAdapter : ListAdapter<ProductUiModel, BindingViewHolder>(createItemCallback()) {
+class ProductAdapter(
+    private val onClickFavorite: (productId: Int, isSelected: Boolean) -> Unit
+) : ListAdapter<ProductUiModel, BindingViewHolder>(createItemCallback()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindingViewHolder {
         val layoutId = if (viewType == ProductUiModel.ViewType.Normal.ordinal) {
             R.layout.item_product_normal
@@ -24,7 +26,7 @@ class ProductAdapter : ListAdapter<ProductUiModel, BindingViewHolder>(createItem
 
             val onFavoriteClick = { _: View ->
                 item.isSelected = !item.isSelected
-                item.onClickFavorite(item.product.id, item.isSelected)
+                onClickFavorite(item.product.id, item.isSelected)
                 notifyItemChanged(holder.bindingAdapterPosition)
             }
 

@@ -10,13 +10,12 @@ import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.manta.kurly_work.R
+import com.manta.kurly_work.*
+import com.manta.kurly_work.data.local.AppPreference
 import com.manta.kurly_work.databinding.ActivityMainBinding
-import com.manta.kurly_work.isEndOfPageReached
-import com.manta.kurly_work.isLoading
-import com.manta.kurly_work.onError
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -25,9 +24,20 @@ class MainActivity : AppCompatActivity() {
 
     private val vm: MainViewModel by viewModels()
 
+    @Inject
+    lateinit var preference : AppPreference
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val pagingAdapter = MainPagingAdapter()
+
+        val pagingAdapter = MainPagingAdapter(onClickFavorite = { productId, isSelected ->
+            if (isSelected) {
+                preference.addFavoriteProduct(productId)
+            } else {
+                preference.removeFavoriteProduct(productId)
+            }
+        })
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.lifecycleOwner = this
         binding.rvSection.adapter = pagingAdapter
@@ -54,7 +64,7 @@ class MainActivity : AppCompatActivity() {
                 binding.layoutRefresh.isRefreshing = it.isLoading()
 
                 it.onError { t ->
-                    Log.e("kurly_debug", t.message, t)
+                    Log.e(TAG, t.message, t)
                 }
             }
         }

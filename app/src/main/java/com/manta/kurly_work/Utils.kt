@@ -6,6 +6,9 @@ import com.bumptech.glide.Glide
 import kotlin.math.roundToInt
 
 
+const val TAG = "kurly_debug"
+
+
 fun ImageView.loadImage(imageUrl: String, @ColorRes placeHolderColorRes: Int) {
     Glide.with(this)
         .load(imageUrl)
