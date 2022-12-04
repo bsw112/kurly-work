@@ -20,10 +20,3 @@ fun CombinedLoadStates.onError(block: (Throwable) -> Unit) = apply {
         block(prepend.error)
     }
 }
-
-fun CombinedLoadStates.onLoading(block: () -> Unit) = apply {
-    if (isLoading()) {
-        block()
-    }
-
-}

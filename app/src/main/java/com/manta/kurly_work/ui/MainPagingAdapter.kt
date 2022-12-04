@@ -4,6 +4,7 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.GridLayoutManager
 import com.manta.kurly_work.R
+import com.manta.kurly_work.createItemCallback
 import com.manta.kurly_work.databinding.ItemSectionGridBinding
 import com.manta.kurly_work.databinding.ItemSectionHorizontalBinding
 import com.manta.kurly_work.databinding.ItemSectionVerticalBinding

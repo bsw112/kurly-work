@@ -4,8 +4,8 @@ import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.manta.kurly_work.TAG
-import com.manta.kurly_work.model.SectionUiModel
 import com.manta.kurly_work.model.PagingUiModel
+import com.manta.kurly_work.model.SectionUiModel
 import retrofit2.HttpException
 import java.io.IOException
 
@@ -15,9 +15,9 @@ class SectionUiModelPagingSource(
     override fun getRefreshKey(state: PagingState<Int, SectionUiModel>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
             val anchorPage = state.closestPageToPosition(anchorPosition)
-            val refreshKey = anchorPage?.prevKey?.plus(1) ?: anchorPage?.nextKey?.minus(1)
-            Log.d(TAG, "refreshKey :$refreshKey")
-            refreshKey
+            anchorPage?.prevKey?.plus(1) ?: anchorPage?.nextKey?.minus(1).also {
+                Log.d(TAG, "refreshKey :$it")
+            }
         }
     }
 

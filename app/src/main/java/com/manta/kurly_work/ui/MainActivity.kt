@@ -2,17 +2,19 @@ package com.manta.kurly_work.ui
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
-import androidx.paging.CombinedLoadStates
-import androidx.paging.LoadState
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.manta.kurly_work.*
+import com.manta.kurly_work.R
+import com.manta.kurly_work.TAG
 import com.manta.kurly_work.data.local.AppPreference
 import com.manta.kurly_work.databinding.ActivityMainBinding
+import com.manta.kurly_work.isLoading
+import com.manta.kurly_work.onError
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -64,6 +66,7 @@ class MainActivity : AppCompatActivity() {
                 binding.layoutRefresh.isRefreshing = it.isLoading()
 
                 it.onError { t ->
+                    pagingAdapter.retry()
                     Log.e(TAG, t.message, t)
                 }
             }
