@@ -19,7 +19,7 @@ class MainViewModel @Inject constructor(
 ) : ViewModel() {
 
     val sectionUiModelList: Flow<PagingData<SectionUiModel>> =
-        Pager(PagingConfig(3, initialLoadSize = 5)) {
+        Pager(PagingConfig(1)) {
             SectionUiModelPagingSource(fetchSectionUiModelUseCase)
         }.flow.cachedIn(viewModelScope)
 }
