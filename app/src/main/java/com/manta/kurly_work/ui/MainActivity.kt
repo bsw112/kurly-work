@@ -2,10 +2,10 @@ package com.manta.kurly_work.ui
 
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,6 +16,7 @@ import com.manta.kurly_work.databinding.ActivityMainBinding
 import com.manta.kurly_work.isLoading
 import com.manta.kurly_work.onError
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -27,7 +28,7 @@ class MainActivity : AppCompatActivity() {
     private val vm: MainViewModel by viewModels()
 
     @Inject
-    lateinit var preference : AppPreference
+    lateinit var preference: AppPreference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,7 +57,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         lifecycleScope.launch {
-            vm.sectionUiModelList.collect {
+            vm.sectionUiModelList.flowWithLifecycle(lifecycle).collectLatest {
                 pagingAdapter.submitData(it)
             }
         }
